@@ -51,8 +51,7 @@ useHead({
 	title: title,
 })
 
-const progress = useState<boolean[][]>('progress', () => [])
-
+const progress = useLocalStorage<boolean[][]>('progress', () => [])
 
 const isLessonComplete = computed(() => {
 	// Safely access array indices by checking for existence first
