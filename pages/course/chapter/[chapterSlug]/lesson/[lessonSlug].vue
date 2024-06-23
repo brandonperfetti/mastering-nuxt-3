@@ -22,6 +22,10 @@
 		</div>
 		<VideoPlayer v-if="lesson?.videoId" :videoId="lesson.videoId" />
 		<p>{{ lesson?.text }}</p>
+		<LessonCompleteButton
+			:model-value="isLessonComplete"
+			@update:model-value="toggleComplete"
+		/>
 	</div>
 </template>
 
@@ -46,4 +50,35 @@ const title = computed(() => {
 useHead({
 	title: title,
 })
+
+const progress = useState<boolean[][]>('progress', () => [])
+
+
+const isLessonComplete = computed(() => {
+	// Safely access array indices by checking for existence first
+	const chapterIndex = chapter.value?.number ? chapter.value.number - 1 : -1
+	const lessonIndex = lesson.value?.number ? lesson.value.number - 1 : -1
+
+	// Early return if indexes are not valid
+	if (chapterIndex < 0 || lessonIndex < 0) return false
+
+	// Use optional chaining to safely access nested properties
+	return progress.value[chapterIndex]?.[lessonIndex] ?? false
+})
+
+const toggleComplete = () => {
+	const chapterIndex = chapter.value?.number ? chapter.value.number - 1 : -1
+	const lessonIndex = lesson.value?.number ? lesson.value.number - 1 : -1
+
+	// Early return if indexes are not valid
+	if (chapterIndex < 0 || lessonIndex < 0) return
+
+	// Initialize the array at chapterIndex if it does not exist
+	if (!progress.value[chapterIndex]) {
+		progress.value[chapterIndex] = []
+	}
+
+	// Toggle the completion status
+	progress.value[chapterIndex][lessonIndex] = !isLessonComplete.value
+}
 </script>
