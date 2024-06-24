@@ -61,7 +61,8 @@ import type { Ref } from 'vue' // Import the Ref type for TypeScript
 
 const { chapters } = useCourse()
 
-const resetError = (error: Ref<Error | null>) => {
+const resetError = async (error: Ref<Error | null>) => {
+	await navigateTo('/')
 	error.value = null
 }
 </script>
