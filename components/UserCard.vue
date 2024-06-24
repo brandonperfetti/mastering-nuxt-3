@@ -9,7 +9,10 @@
     />
     <div class="text-right">
       <div class="font-medium">{{ name }}</div>
-      <button class="text-sm underline text-slate-500">
+      <button
+        class="text-sm underline text-slate-500"
+        @click="logout"
+      >
         Log out
       </button>
     </div>
@@ -18,6 +21,18 @@
 
 <script setup lang="ts">
 const user = useSupabaseUser();
+const supabase = useSupabaseClient();
+
+const logout = async () => {
+  const { error } = await supabase.auth.signOut();
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  await navigateTo('/login');
+};
 
 const name = computed(
   () => user.value?.user_metadata.full_name
