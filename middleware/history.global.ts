@@ -1,7 +1,4 @@
 export default defineNuxtRouteMiddleware((to, from) => {
-  const navigationHistory = useLocalStorage<string[]>('history', []);
+  const navigationHistory = useLocalStorage('history', []);
   navigationHistory.value.push(to.path);
-  // console.log(
-  //   `navigationHistory: ${navigationHistory.value.join(' -> ')}`
-  // )
 });
