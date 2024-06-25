@@ -12,11 +12,27 @@
 
 <script setup lang="ts">
 const { title } = useCourse();
+const { query } = useRoute();
 const supabase = useSupabaseClient();
+const user = useSupabaseUser();
+
+watchEffect(async () => {
+  if (user.value) {
+    await navigateTo(query.redirectTo as string, {
+      replace: true,
+    });
+  }
+});
 
 const login = async () => {
+  const queryParams =
+    query.redirectTo !== undefined
+      ? `?redirectTo=${query.redirectTo}`
+      : '';
+  const redirectTo = `${window.location.origin}/confirm${queryParams}`;
   const { error } = await supabase.auth.signInWithOAuth({
     provider: 'github',
+    options: { redirectTo },
   });
 
   if (error) {
