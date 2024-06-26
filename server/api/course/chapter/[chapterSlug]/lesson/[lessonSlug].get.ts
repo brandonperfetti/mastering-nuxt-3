@@ -1,37 +1,43 @@
+import type {
+  Course,
+  Chapter,
+  Lesson,
+  LessonWithPath,
+} from '~/types/course';
 import course from '~/server/courseData';
 
-export default defineEventHandler((event) => {
-  if (!event.context.params) {
-    throw new Error(
-      'Parameters are missing from the request'
+course as Course;
+
+export default defineEventHandler(
+  (event): LessonWithPath => {
+    const { chapterSlug, lessonSlug } =
+      event.context.params;
+
+    const chapter: Maybe<Chapter> = course.chapters.find(
+      (chapter) => chapter.slug === chapterSlug
     );
+
+    if (!chapter) {
+      throw createError({
+        statusCode: 404,
+        message: 'Chapter not found',
+      });
+    }
+
+    const lesson: Maybe<Lesson> = chapter.lessons.find(
+      (lesson) => lesson.slug === lessonSlug
+    );
+
+    if (!lesson) {
+      throw createError({
+        statusCode: 404,
+        message: 'Lesson not found',
+      });
+    }
+
+    return {
+      ...lesson,
+      path: `/course/chapter/${chapterSlug}/lesson/${lessonSlug}`,
+    };
   }
-  const { chapterSlug, lessonSlug } = event.context
-    .params as Record<string, string> & {
-    chapterSlug: string;
-    lessonSlug: string;
-  };
-  const chapter = course.chapters.find(
-    (chapter) => chapter.slug === chapterSlug
-  );
-
-  if (!chapter) {
-    throw createError({
-      statusCode: 404,
-      message: 'Chapter not found',
-    });
-  }
-
-  const lesson = chapter.lessons.find(
-    (lesson) => lesson.slug === lessonSlug
-  );
-
-  if (!lesson) {
-    throw createError({
-      statusCode: 404,
-      message: 'Lesson not found',
-    });
-  }
-
-  return lesson;
-});
+);
