@@ -16,22 +16,26 @@ export default defineEventHandler(async (event) => {
       message: 'Parameters are missing',
     });
   }
-
   const { chapterSlug, lessonSlug } = params;
 
-  return prisma.lesson.findFirst({
+  const lesson = await prisma.lesson.findFirst({
     where: {
+      slug: lessonSlug,
       Chapter: {
         slug: chapterSlug,
       },
     },
-    include: {
-      Chapter: {
-        select: {
-          slug: true,
-          title: true,
-        },
-      },
-    },
   });
+
+  if (!lesson) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: 'Lesson not found',
+    });
+  }
+
+  return {
+    ...lesson,
+    path: `/course/chapter/${chapterSlug}/lesson/${lessonSlug}`,
+  };
 });
