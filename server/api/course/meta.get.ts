@@ -17,7 +17,7 @@ export type LessonOutline = Prisma.LessonGetPayload<
 };
 
 const chapterSelect =
-  Prisma.validator<Prisma.ChapterArgs>()({
+  Prisma.validator<Prisma.ChapterDefaultArgs>()({
     select: {
       title: true,
       slug: true,
