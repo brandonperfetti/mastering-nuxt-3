@@ -1,16 +1,11 @@
 import { defineStore } from 'pinia';
-
-type Progress = {
-  [chapter: string]: {
-    [lesson: string]: boolean;
-  };
-};
+import type { CourseProgress } from '~/types/course';
 
 export const useCourseProgress = defineStore(
   'courseProgress',
   () => {
     // Initialize progress from local storage
-    const progress = ref<Progress>({})
+    const progress = ref<CourseProgress>({});
     const initialized = ref(false);
 
     async function initialize() {
@@ -19,6 +14,16 @@ export const useCourseProgress = defineStore(
       initialized.value = true;
 
       //TODO: Fetch user progress from endpoint (lesson 6-5)
+      const { data: userProgress } =
+        await useFetch<CourseProgress>(
+          '/api/user/progress',
+          { headers: useRequestHeaders(['cookie']) }
+        );
+
+      // Update progress value
+      if (userProgress.value) {
+        progress.value = userProgress.value;
+      }
     }
 
     // Toggle the progress of a lesson based on chapter slug and lesson slug
