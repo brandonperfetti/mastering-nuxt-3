@@ -1,4 +1,9 @@
 export default defineNuxtConfig({
+  nitro: {
+    prerender: {
+      routes: ['/landing'],
+    },
+  },
   modules: [
     '@nuxtjs/tailwindcss',
     '@vueuse/nuxt',
