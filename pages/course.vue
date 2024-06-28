@@ -81,8 +81,8 @@
 </template>
 
 <script setup>
-import { useCourseProgress } from '~/stores/courseProgress';
 import { storeToRefs } from 'pinia';
+import { useCourseProgress } from '~/stores/courseProgress';
 const user = useSupabaseUser();
 const course = await useCourse();
 const firstLesson = await useFirstLesson();
