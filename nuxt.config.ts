@@ -2,9 +2,9 @@ import vsharp from 'vite-plugin-vsharp';
 
 export default defineNuxtConfig({
   runtimeConfig: {
-    stripeSecret: '',
+    stripeSecret: process.env.NUXT_STRIPE_SECRET,
     public: {
-      stripeKey: '',
+      stripeKey: process.env.NUXT_STRIPE_PUBLIC_KEY,
     },
   },
   nitro: {
