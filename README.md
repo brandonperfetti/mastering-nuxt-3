@@ -7,8 +7,11 @@ Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
 ## Prerequisites
 
 [Node.js](https://nodejs.org/en/download/) installed on your machine.
+
 [Nuxt.js](https://nuxtjs.org/) installed on your machine.
-[stripe](https://stripe.com/) account to get the API keys.
+
+[Stripe](https://stripe.com/) account to get the API keys.
+
 [Supabase](https://supabase.io/) account to get the API keys.
 
 
