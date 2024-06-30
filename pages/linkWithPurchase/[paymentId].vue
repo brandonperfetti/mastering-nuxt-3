@@ -1,5 +1,6 @@
 <script setup>
 const user = useSupabaseUser();
+const firstLesson = await useFirstLesson();
 
 watchEffect(async () => {
   if (user.value) {
@@ -11,7 +12,7 @@ watchEffect(async () => {
       }
     );
 
-    await navigateTo('/landing', {
+    await navigateTo(firstLesson.path, {
       replace: true,
     });
   }
