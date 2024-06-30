@@ -21,6 +21,23 @@
         <h2 class="font-bold text-xl text-center">
           Buying {{ course.title }}
         </h2>
+        <div class="p-2">
+          <p class="text-center text-sm">
+            A Github account is required to access the
+            course
+          </p>
+          <p class="text-center text-sm">
+            This is in test mode so use a
+            <NuxtLink
+              to="https://docs.stripe.com/testing"
+              class="hover:text-blue-500 hover:underline"
+              >test CC</NuxtLink
+            >
+          </p>
+          <p class="text-center text-sm">
+            You will not be charged
+          </p>
+        </div>
         <div
           class="mt-8 text-base width bg-white py-6 px-8 rounded shadow-md"
         >

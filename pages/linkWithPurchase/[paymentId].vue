@@ -11,7 +11,7 @@ watchEffect(async () => {
       }
     );
 
-    await navigateTo('/', {
+    await navigateTo('/landing', {
       replace: true,
     });
   }

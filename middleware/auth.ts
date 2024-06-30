@@ -16,6 +16,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
     // Prevent logging in with Github if user has not purchased course
     const client = useSupabaseClient();
     await client.auth.signOut();
+    return navigateTo('/landing');
   }
 
   return navigateTo(`/login?redirectTo=${to.path}`);

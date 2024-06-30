@@ -1,17 +1,26 @@
 <template>
-  <div class="prose w-full max-w-2xl h-9">
-    <h1>Log in to {{ course.title }}</h1>
+  <Section class="space-y-12 flex flex-col items-center">
+    <h1
+      class="text-7xl font-black text-blue-500 m-0 p-0 text-center"
+    >
+      Log in to access course materials
+    </h1>
     <button
-      class="bg-blue-500 text-white font-bold py-2 px-4 rounded"
+      class="bg-blue-400 hover:bg-blue-500 transition px-8 py-4 w-80 text-xl font-bold rounded-lg"
       @click="login"
     >
       Log in with Github
     </button>
-  </div>
+    <button
+      class="bg-green-400 hover:bg-green-500 transition px-8 py-4 w-80 text-xl font-bold rounded-lg"
+      @click="navHome"
+    >
+      Go Home
+    </button>
+  </Section>
 </template>
 
 <script setup lang="ts">
-const course = await useCourse();
 const { query } = useRoute();
 const supabase = useSupabaseClient();
 const user = useSupabaseUser();
@@ -23,6 +32,10 @@ watchEffect(async () => {
     });
   }
 });
+
+const navHome = async () => {
+  await navigateTo('/');
+};
 
 const login = async () => {
   const queryParams =

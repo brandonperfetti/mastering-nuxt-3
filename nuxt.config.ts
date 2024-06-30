@@ -3,14 +3,15 @@ import vsharp from 'vite-plugin-vsharp';
 export default defineNuxtConfig({
   runtimeConfig: {
     stripeSecret: process.env.NUXT_STRIPE_SECRET,
-    stripeWebhookSecret: process.env.NUXT_STRIPE_WEBHOOK_SECRET,
+    stripeWebhookSecret:
+      process.env.NUXT_STRIPE_WEBHOOK_SECRET,
     public: {
       stripeKey: process.env.NUXT_STRIPE_PUBLIC_KEY,
     },
   },
   nitro: {
     prerender: {
-      routes: ['/landing'],
+      routes: ['/'],
     },
   },
   vite: {
