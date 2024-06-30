@@ -3,9 +3,10 @@ import { H3Event } from 'h3';
 // If the user does not exist on the request, throw a 401 error
 export default async (event: H3Event) => {
   if (!event.context.user) {
+    console.error('No user in context');
     throw createError({
       statusCode: 401,
-      message: 'Unauthorized',
+      message: 'Unauthorized: No user found in session',
     });
   }
 
@@ -20,14 +21,18 @@ export default async (event: H3Event) => {
   }
 
   // Check to see if this user has access to this course
-  const hasAccess = await $fetch('/api/user/hasAccess', {
-    headers: headers,
-  });
+  try {
+    const hasAccess = await $fetch('/api/user/hasAccess', { headers });
+    // console.log('User has access:', hasAccess);
 
-  if (!hasAccess) {
+    if (!hasAccess) {
+      throw new Error('Access denied for this course');
+    }
+  } catch (error) {
+    console.error('Error checking access:', error);
     throw createError({
       statusCode: 401,
-      message: 'Unauthorized',
+      message: 'Unauthorized: Failed to verify course access',
     });
   }
 };

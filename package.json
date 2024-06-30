@@ -4,24 +4,25 @@
     "seed": "node prisma/seed.mjs"
   },
   "scripts": {
-    "build": "nuxt build",
+    "build": "prisma generate && nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview"
   },
   "devDependencies": {
     "@nuxtjs/supabase": "^1.1.4",
-    "@nuxtjs/tailwindcss": "^6.10.1",
+    "@nuxtjs/tailwindcss": "^6.9.3",
     "@pinia/nuxt": "^0.5.1",
-    "@prisma/client": "^5.16.1",
-    "@tailwindcss/typography": "^0.5.10",
+    "@prisma/client": "^5.7.0",
+    "@tailwindcss/typography": "^0.5.8",
     "@vueuse/core": "^10.7.0",
     "@vueuse/nuxt": "^10.7.0",
     "nuxt": "^3.8.2",
     "pinia": "^2.1.7",
-    "vite-plugin-vsharp": "^1.8.1"
+    "prisma": "^5.7.0",
+    "vite-plugin-vsharp": "^1.6.0"
   },
   "dependencies": {
-    "stripe": "^16.1.0"
+    "stripe": "^11.10.0"
   }
 }

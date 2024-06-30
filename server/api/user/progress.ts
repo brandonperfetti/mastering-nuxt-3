@@ -16,9 +16,18 @@ export default defineEventHandler(async (event) => {
   protectRoute(event);
 
   // Get user email from the supabase user if there is one.
-  const {
-    user: { email: userEmail },
-  } = event.context;
+  // const {
+  //   user: { email: userEmail },
+  // } = event.context;
+
+  const userEmail = event.context.user?.email;
+
+  if (!userEmail) {
+    throw createError({
+      statusCode: 401,
+      statusMessage: 'Unauthorized: User is not logged in',
+    });
+  }
 
   // Get the progress from the DB
   const userProgress = await prisma.lessonProgress.findMany(
