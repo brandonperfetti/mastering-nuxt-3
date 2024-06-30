@@ -1,6 +1,6 @@
 # Mastering Nuxt 3
 
-This is a repository of my work for the course [Mastering Nuxt 3](https://masteringnuxt3.com). It contains the source code for the course project.
+This is a repository of my work for the course [Mastering Nuxt 3](https://masteringnuxt.com/nuxt3). It contains the source code for the course project.
 
 Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
 
